@@ -20,6 +20,7 @@ $SUDO $CONTAINER_MGR run \
     --detach \
     --restart=unless-stopped \
     --security-opt seccomp=unconfined \
+    --cap-add AUDIT_WRITE \
     --publish "$POC_CONJUR_HTTPS_PORT:443" \
     --publish "444:444" \
     --publish "5432:5432" \
