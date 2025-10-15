@@ -1,5 +1,10 @@
 #!/bin/bash
-
+source 00.config.sh
+echo ">>> Import root CA to OS trust store"
+cd $PWD/certs
+cp ca.crt /etc/pki/ca-trust/source/anchors/
+sudo update-ca-trust extract
+echo ">>> Done 🎉"
 echo ">>> [1/5] Checking root permission..."
 if [ "$EUID" -ne 0 ]; then
   echo "Pls run this script as root(sudo or su -)"
