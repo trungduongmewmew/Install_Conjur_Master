@@ -1,12 +1,12 @@
 #!/bin/bash
 
-echo ">>> [1/6] Checking root permission..."
+echo ">>> [1/5] Checking root permission..."
 if [ "$EUID" -ne 0 ]; then
   echo "Pls run this script as root(sudo or su -)"
   exit 1
 fi
 
-echo ">>> [2/6] Checking subscription..."
+echo ">>> [2/5] Checking subscription..."
 subscription-manager status >/dev/null 2>&1
 if [ $? -ne 0 ]; then
   echo "⚠️  System not registered with Red Hat Subscription Management."
@@ -16,11 +16,11 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo ">>> [3/6] Updating..."
+echo ">>> [3/5] Updating..."
 dnf clean all
 dnf -y update
 
-echo ">>> [4/6] Installing Podman..."
+echo ">>> [4/5] Installing Podman..."
 dnf -y install podman
 
 if [ $? -ne 0 ]; then
@@ -28,7 +28,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo ">>> [5/6] Check version Podman..."
+echo ">>> [5/5] Check version Podman..."
 podman_version=$(podman --version 2>/dev/null)
 if [ $? -eq 0 ]; then
   echo "✅Install sucessfully! $podman_version"
